@@ -1,13 +1,14 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import 'nprogress/nprogress.css'
 import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import http from './http';
+import App from '@/App.vue';
+import router from '@router';
+import store from '@store';
+import http from '@http';
 import VueAxios from 'vue-axios';
 import getBrowserInfo from 'get-browser-info';
-import apiConfig from './config/api-config';
+import apiConfig from '@config/api-config';
 import {
   Button,
   Layout,
@@ -33,15 +34,17 @@ import {
 } from 'ant-design-vue';
 
 // 实际打包时不引入mock
-// if (process.env.NODE_ENV !== 'production') require('@/mock');
+if (process.env.NODE_ENV !== 'production') require('@/mock');
 
 // 打印浏览器信息
 const browserInfo = getBrowserInfo();
 if (process.env.NODE_ENV !== 'production') console.log(browserInfo);
 
-
 // 实例挂载API配置
 Vue.prototype.$api = apiConfig;
+
+// 事件总线
+Vue.prototype.$eventBus = new Vue();
 
 // 挂载实例方法
 Vue.prototype.$message = message;

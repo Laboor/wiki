@@ -4,7 +4,7 @@
       class="undone-img"
       align="center"
       alt="开发中"
-      src="../../assets\img\building.png"
+      src="@assets/img/building.png"
     />
     <h1 class="undone-title">
       功能开发中，敬请期待...

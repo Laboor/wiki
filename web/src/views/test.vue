@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import xlsx from '../components/xlsx/xlsx';
+import xlsx from '@utils/xlsx.js';
 // var SheetJSFT = [
 // 	"xlsx", "xlsb", "xlsm", "xls", "xml", "csv", "txt", "ods", "fods", "uos", "sylk", "dif", "dbf", "prn", "qpw", "123", "wb*", "wq*", "html", "htm"
 // ].map(function(x) { return "." + x; }).join(",");

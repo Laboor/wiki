@@ -5,17 +5,18 @@
 				<p>Content</p>
 				<p>Content</p>
 			</template>
-			<span >Hello World</span>
+			<span>Hello World</span>
 		</a-popover>
 
-    <button @click="onClick" style="margin: 200px;">
-      button
-    </button>
+		<button @click="onClick" style="margin: 200px;">
+			button
+		</button>
 	</div>
 </template>
 
 <script>
 export default {
+	name: 'home',
 	data() {
 		return {
 			show: false,
@@ -23,7 +24,7 @@ export default {
 	},
 	methods: {
 		onClick() {
-			this.show = !this.show;
+			this.$store.dispatch('getAsyncRoute');
 		},
 	},
 };

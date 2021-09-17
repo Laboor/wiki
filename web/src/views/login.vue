@@ -131,7 +131,7 @@ export default {
     // 获取加密随机盐函数
     getRandomSalt() {
       return this.axios
-        .get(this.$api.randomSalt, {
+        .get(this.$api.SALT, {
           params: {
             account: this.loginForm.account,
           },
@@ -143,7 +143,7 @@ export default {
     // 验证用户信息函数
     checkUserInfo(randomSalt) {
       return this.axios
-        .post(this.$api.login, {
+        .post(this.$api.LOGIN, {
           account: this.loginForm.account,
           password: this.encrypt(
             this.encrypt(this.loginForm.password),
@@ -165,7 +165,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('../../assets/img/login-background.svg');
+  background-image: url('../assets/img/login-background.svg');
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;

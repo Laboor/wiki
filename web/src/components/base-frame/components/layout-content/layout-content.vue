@@ -6,7 +6,7 @@
 
 <script>
 export default {
-	name: 'LayoutContent',
+	name: 'layout-content',
 };
 </script>
 
