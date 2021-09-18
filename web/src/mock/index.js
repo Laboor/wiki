@@ -9,7 +9,7 @@ Mock.setup({
 });
 
 // 配置Mock API
-const BASE_URL = process.env.VUE_APP_API_ROOT;
+const BASE_URL = process.env.VUE_APP_HOST;
 Mock.mock(BASE_URL + api.LOGIN, login);
 Mock.mock(BASE_URL + api.MENU, menu);
 

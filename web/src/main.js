@@ -35,7 +35,7 @@ import {
 } from 'ant-design-vue';
 
 // 实际打包时不引入mock
-if (process.env.NODE_ENV !== 'production') require('@/mock');
+// if (process.env.NODE_ENV !== 'production') require('@/mock');
 
 // 打印浏览器信息
 const browserInfo = getBrowserInfo();
