@@ -1,19 +1,19 @@
 <template>
 	<a-layout-header class="layout-header">
 		<breadcrumb class="header-breadcrumb"/>
-		<content-bar />
+		<right-content />
 	</a-layout-header>
 </template>
 
 <script>
-import Breadcrumb from './components/breadcrumb/breadcrumb';
-import ContentBar from './components/content-bar/content-bar';
+import Breadcrumb from './components/Breadcrumb';
+import RightContent from './components/RightContent';
 
 export default {
-	name: 'layout-header',
+	name: 'LayoutHeader',
 	components: {
 		Breadcrumb,
-		ContentBar,
+		RightContent,
 	},
 	data() {
 		return {};

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '@router';
 import http from '@http';
-import api from '@config/api-config';
+import api from '@config/api';
 import { CREATE_MAIN_MENU } from './mutation-types';
 
 Vue.use(Vuex);
@@ -44,17 +44,21 @@ export default new Vuex.Store({
 	},
 	actions: {
 		getAsyncRoute({ commit }) {
-			return http.get(api.MENU).then((res) => {
-				res.data.routes.forEach((routeConfig) => {
-					let componentName = routeConfig.component;
-					routeConfig.component = () => import(`@views/${componentName}`);
-					let parent = routeConfig.parent;
-					delete routeConfig.parent;
-					router.addRoute(parent, routeConfig);
+			return http
+				.get(api.MENU)
+				.then((res) => {
+					res.data.routes.forEach((routeConfig) => {
+						let componentName = routeConfig.component;
+						routeConfig.component = () => import(`@views/${componentName}`);
+						let parent = routeConfig.parent;
+						delete routeConfig.parent;
+						router.addRoute(parent, routeConfig);
+					});
+					return res;
+				})
+				.finally(() => {
+					commit(CREATE_MAIN_MENU); // 生成主菜单
 				});
-				commit('CREATE_MAIN_MENU'); // 生成主菜单
-				return res;
-			});
 		},
 		updateUserInfo({ dispatch, state }, userId) {
 			return http

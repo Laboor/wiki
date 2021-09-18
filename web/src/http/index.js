@@ -21,6 +21,7 @@ axios.interceptors.request.use(
 	function(error) {
 		// 对请求错误做些什么
 		// TODO...
+		console.error('请求错误：', error);
 		return Promise.reject(error);
 	}
 );
@@ -30,14 +31,14 @@ axios.interceptors.response.use(
 	function(response) {
 		// 对响应数据做点什么
 		// TODO...
-		console.log('返回结果:', response);
+		console.log('响应结果:', response);
 		console.timeEnd('请求耗时');
 		return response;
 	},
 	function(error) {
 		// 对响应错误做点什么
 		// TODO...
-		console.error('返回错误：', error);
+		console.error('响应错误：', error);
 		console.timeEnd('请求耗时');
 		return Promise.reject(error);
 	}

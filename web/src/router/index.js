@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import routes from './routes';
 import http from '@http';
 import store from '@store';
-import api from '@config/api-config';
+import api from '@config/api';
 import { message } from 'ant-design-vue';
 import NProgress from 'nprogress'; // Progress 进度条
 
@@ -38,6 +38,7 @@ let isStartRoute = true;
 router.beforeEach((to, from, next) => {
 	// 开启进度条
 	NProgress.start();
+
 	// 修改页面title
 	if (to.meta.title) {
 		document.title = `${to.meta.title} — ${process.env.VUE_APP_BASE_TITLT}`;
@@ -47,42 +48,54 @@ router.beforeEach((to, from, next) => {
 	if (from === VueRouter.START_LOCATION && isStartRoute) {
 		isStartRoute = false;
 		// 加载异步路由
-		store.dispatch('getAsyncRoute').then(() => {
-			if (to.matched[0].path === '*') {
-				next({ path: to.fullPath });
-			} else if (to.meta.loginAuth) {
-				// 需要登录验证
-				http
-					.get(api.AUTH_VERIFICATION, {
-						headers: {
-							Authorization: 'Bearer ' + localStorage.getItem('token'),
-						},
-					})
-					.then(() => {
-						next();
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.error('ResponseError', error.response);
-						} else if (error.request) {
-							console.error('RequestError', error.request);
-						} else {
-							console.error('UnknownError', error.message);
-						}
-						message.warning({
-							content: '未登录账户，请先登录已继续浏览！',
-							duration: 3,
-						});
-						router.redirectUrl = to.path; // 缓存跳转登录前的页面路径
-						next({ name: 'login' }); // 跳转登录页
+		store
+			.dispatch('getAsyncRoute')
+			.then(() => {
+				if (to.matched[0].path === '*') {
+					// 需加载的路由属于异步路由
+					next({ path: to.fullPath, replace: true });
+				} else {
+					// 非异步路由且不需要登录验证
+					next();
+				}
+			})
+			.catch(() => {
+				if (to.meta.loginAuth) {
+					// 需要登录验证
+					message.warning({
+						content: '未登录账户，请先登录以继续浏览！',
+						duration: 3,
 					});
-			} else {
-				next();
-			}
-		});
+					router.redirectUrl = to.path; // 缓存跳转登录前的页面路径
+					next({ path: '/login' }); // 跳转登录页
+				} else {
+					next();
+				}
+			});
 	} else {
 		// 不为初始导航
-		next();
+		if (to.meta.loginAuth) {
+			// 登录验证,此处进行验证可应对登录过时的情况
+			http
+				.get(api.AUTH_VERIFICATION, {
+					headers: {
+						Authorization: 'Bearer ' + localStorage.getItem('token'),
+					},
+				})
+				.then(() => {
+					next();
+				})
+				.catch(() => {
+					message.warning({
+						content: '未登录账户，请先登录以继续浏览！',
+						duration: 3,
+					});
+					router.redirectUrl = to.path; // 缓存跳转登录前的页面路径
+					next({ path: '/login' }); // 跳转登录页
+				});
+		} else {
+			next();
+		}
 	}
 });
 

@@ -26,7 +26,7 @@
 
 <script>
 export default {
-	name: 'content-bar',
+	name: 'RightContent',
 	data() {
 		return {};
 	},

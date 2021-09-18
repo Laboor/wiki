@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'tabs-nav',
+  name: 'TabsNav',
   props: {
     tabList: {
       type: Array,

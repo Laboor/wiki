@@ -1,5 +1,5 @@
-import BaseFrame from '@components/base-frame/base-frame.vue';
-import ChildView from '@components/child-view.vue';
+import Layout from '@components/Layout';
+import ParentView from '@components/ParentView';
 
 /* meta 配置参数说明
  ** title--浏览器标签
@@ -16,7 +16,7 @@ let routes = [
 	{
 		path: '/',
 		name: 'root',
-		component: BaseFrame,
+		component: Layout,
 		meta: {
 			hideInBread: true,
 			hideInMenu: true,
@@ -27,7 +27,7 @@ let routes = [
 				path: 'home',
 				name: 'home',
 				component: () =>
-					import(/* webpackChunkName: "home" */ '@views/home.vue'),
+					import(/* webpackChunkName: "Home" */ '@views/Home.vue'),
 				meta: {
 					title: '首页',
 					icon: 'home',
@@ -39,7 +39,7 @@ let routes = [
 			{
 				path: 'test',
 				name: 'test',
-				component: ChildView,
+				component: ParentView,
 				meta: {
 					title: '测试',
 					icon: 'home',
@@ -49,7 +49,7 @@ let routes = [
 					{
 						path: 'login',
 						name: 'login',
-						component: ChildView,
+						component: ParentView,
 						meta: {
 							title: '登录',
 							icon: 'home',
@@ -60,7 +60,7 @@ let routes = [
 								path: 'undone',
 								name: 'undone',
 								component: () =>
-									import(/* webpackChunkName: "undone" */ '@views/undone.vue'),
+									import(/* webpackChunkName: "Undone" */ '@views/Undone.vue'),
 								meta: {
 									title: '未完成',
 									icon: 'home',
@@ -77,7 +77,7 @@ let routes = [
 		name: 'page-not-found',
 		component: () =>
 			import(
-				/* webpackChunkName: "page-not-found" */ '../views/page-not-found.vue'
+				/* webpackChunkName: "PageNotFound" */ '../views/PageNotFound.vue'
 			),
 		meta: {
 			hideInMenu: true,
@@ -92,7 +92,7 @@ if (process.env.NODE_ENV !== 'production') {
 			path: '/login',
 			name: 'login',
 			component: () =>
-				import(/* webpackChunkName: "login" */ '@views/login.vue'),
+				import(/* webpackChunkName: "Login" */ '@views/Login.vue'),
 			meta: {
 				title: '登录',
 				hideInMenu: true,
@@ -101,7 +101,7 @@ if (process.env.NODE_ENV !== 'production') {
 		{
 			path: '/test',
 			name: 'test',
-			component: () => import(/* webpackChunkName: "test" */ '@views/test.vue'),
+			component: () => import(/* webpackChunkName: "Test" */ '@views/Test.vue'),
 			meta: {
 				title: '测试',
 				hideInMenu: true,

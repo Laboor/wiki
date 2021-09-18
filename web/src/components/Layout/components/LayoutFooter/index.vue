@@ -6,7 +6,7 @@
 
 <script>
 export default {
-	name: 'layout-footer',
+	name: 'LayoutFooter',
 };
 </script>
 

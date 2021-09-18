@@ -1,11 +1,11 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs';
 import login from './data/login';
 import menu from './data/menu';
-import api from '@config/api-config';
+import api from '@config/api';
 
 // 响应延时配置
 Mock.setup({
-  timeout: '200-500'
+	timeout: '200-500',
 });
 
 // 配置Mock API

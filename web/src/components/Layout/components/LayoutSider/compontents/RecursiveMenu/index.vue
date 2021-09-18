@@ -47,7 +47,7 @@ const subMenu = {
 };
 
 export default {
-	name: 'recursive-menu',
+	name: 'RecursiveMenu',
 	components: {
 		'sub-menu': subMenu,
 	},

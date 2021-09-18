@@ -26,7 +26,7 @@
 
 <script>
 export default {
-	name: 'breadcrumb',
+	name: 'Breadcrumb',
 	computed: {
 		shouldShowRoutes() {
 			return this.$route.matched.filter((route) => {

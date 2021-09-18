@@ -4,7 +4,7 @@ export default {
 			path: '/foo',
 			name: 'foo',
       parent: 'root',
-			component: 'foo.vue',
+			component: 'Foo.vue',
 			meta: {
 				title: '愚人',
 				icon: 'home',

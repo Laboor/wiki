@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import recursiveMenu from './compontents/recursive-menu.vue';
+import RecursiveMenu from './compontents/RecursiveMenu';
 
 export default {
-	name: 'layout-sider',
+	name: 'LayoutSider',
 	components: {
-		'recursive-menu': recursiveMenu,
+		RecursiveMenu,
 	},
 };
 </script>

@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import LayoutSider from './components/layout-sider/layout-sider.vue';
-import LayoutHeader from './components/layout-header/layout-header.vue';
-import LayoutContent from './components/layout-content/layout-content.vue';
-import LayoutFooter from './components/layout-footer/layout-footer.vue';
+import LayoutSider from './components/LayoutSider';
+import LayoutHeader from './components/LayoutHeader';
+import LayoutContent from './components/LayoutContent';
+import LayoutFooter from './components/LayoutFooter';
 
 export default {
-  name: 'base-frame',
+  name: 'Layout',
   components: {
     LayoutHeader,
     LayoutSider,

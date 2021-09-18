@@ -1,6 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import 'nprogress/nprogress.css'
+import 'nprogress/nprogress.css';
 import Vue from 'vue';
 import App from '@/App.vue';
 import router from '@router';
@@ -8,29 +8,30 @@ import store from '@store';
 import http from '@http';
 import VueAxios from 'vue-axios';
 import getBrowserInfo from 'get-browser-info';
-import apiConfig from '@config/api-config';
+import api from '@config/api';
 import {
-  Button,
-  Layout,
-  Menu,
-  Icon,
-  Row,
-  Col,
-  Avatar,
-  Input,
-  Dropdown,
-  Breadcrumb,
-  Result,
-  Drawer,
-  Spin,
-  message,
-  Empty,
-  Popover,
-  FormModel,
-  Tooltip,
-  InputNumber,
-  Select,
-  Card
+	Button,
+	Layout,
+	Menu,
+	Icon,
+	Row,
+	Col,
+	Avatar,
+	Input,
+	Dropdown,
+	Breadcrumb,
+	Result,
+	Drawer,
+	Spin,
+	message,
+	Empty,
+	Popover,
+	FormModel,
+	Tooltip,
+	InputNumber,
+	Select,
+	Card,
+	List,
 } from 'ant-design-vue';
 
 // 实际打包时不引入mock
@@ -41,7 +42,7 @@ const browserInfo = getBrowserInfo();
 if (process.env.NODE_ENV !== 'production') console.log(browserInfo);
 
 // 实例挂载API配置
-Vue.prototype.$api = apiConfig;
+Vue.prototype.$api = api;
 
 // 事件总线
 Vue.prototype.$eventBus = new Vue();
@@ -74,9 +75,10 @@ Vue.use(Tooltip);
 Vue.use(InputNumber);
 Vue.use(Select);
 Vue.use(Card);
+Vue.use(List);
 
 new Vue({
-  router,
-  store,
-  render: (h) => h(App),
+	router,
+	store,
+	render: (h) => h(App),
 }).$mount('#app');
