@@ -2,9 +2,12 @@ package com.avalon.wiki.mapper;
 
 import com.avalon.wiki.domain.Demo;
 import com.avalon.wiki.domain.DemoExample;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+@Mapper
 public interface DemoMapper {
     long countByExample(DemoExample example);
 

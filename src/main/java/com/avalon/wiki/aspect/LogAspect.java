@@ -89,7 +89,7 @@ public class LogAspect {
     }
 
     /**
-     * 排除字段，敏感字段或太长的字段不显示
+     * 过滤字段，敏感字段或太长的字段不显示
      */
     public PropertyPreFilters.MySimplePropertyPreFilter excludeFilter() {
         PropertyPreFilters filters = new PropertyPreFilters();
@@ -102,7 +102,7 @@ public class LogAspect {
      * 使用nginx做反向代理，需要用该方法才能取到真实的远程IP
      *
      * @param request
-     * @return
+     * @return String
      */
     public String getRemoteIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
