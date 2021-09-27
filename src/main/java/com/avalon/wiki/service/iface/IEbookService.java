@@ -6,5 +6,5 @@ import com.avalon.wiki.response.EbookResp;
 import java.util.List;
 
 public interface IEbookService {
-    public List<EbookResp> list(EbookReq req);
+    List<EbookResp> list(EbookReq req);
 }

@@ -28,3 +28,17 @@ insert into `ebook` (id, name, description) values (2, 'Vue 入门教程', '零�
 insert into `ebook` (id, name, description) values (3, 'Python 入门教程', '零基础入门 Python 开发，企业级应用开发最佳首选框架');
 insert into `ebook` (id, name, description) values (4, 'Mysql 入门教程', '零基础入门 Mysql 开发，企业级应用开发最佳首选框架');
 insert into `ebook` (id, name, description) values (5, 'Oracle 入门教程', '零基础入门 Oracle 开发，企业级应用开发最佳首选框架');
+
+
+# 定时任务表
+drop table if exists `job_scheduler`;
+create table `job_scheduler` (
+  `job_id` bigint not null comment '任务id',
+  `job_name` varchar(50) comment '任务名称',
+  `description` varchar(500) comment '任务描述',
+  `cron_expression` varchar(20) not null comment 'cron表达式',
+  `status` varchar(1) not null comment '状态' default 1,
+  primary key (`job_id`)
+) engine=innodb default charset=utf8mb4 comment='定时任务表';
+
+insert into `job_scheduler` values (1, 'DynamicJobTest', '动态定时任务1', '*/3 * * * * ?', '1');
