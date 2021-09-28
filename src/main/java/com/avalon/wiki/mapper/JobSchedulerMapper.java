@@ -9,5 +9,5 @@ import java.util.List;
 public interface JobSchedulerMapper {
     List<JobScheduler> findAll();
     JobScheduler findByJobName(String jobName);
-    void updateByName(JobScheduler jobScheduler);
+    void updateByJobName(JobScheduler jobScheduler);
 }

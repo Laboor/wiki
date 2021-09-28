@@ -38,7 +38,7 @@ public class TestController {
 
     @GetMapping("/start")
     public void start() {
-        jobService.startJob("com.avalon.wiki.job.DynamicJobTest");
+        System.out.println(jobService.resetJob("com.avalon.wiki.job.DynamicJobTest"));
     }
 
     @GetMapping("/stop")

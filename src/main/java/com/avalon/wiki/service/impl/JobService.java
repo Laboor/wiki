@@ -2,12 +2,11 @@ package com.avalon.wiki.service.impl;
 
 import com.avalon.wiki.constant.Constant;
 import com.avalon.wiki.domain.JobScheduler;
-import com.avalon.wiki.service.iface.IJobSchedulerService;
+import com.avalon.wiki.mapper.JobSchedulerMapper;
 import com.avalon.wiki.service.iface.IJobService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.SchedulingException;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class JobService implements IJobService {
     private static final Logger LOG = LoggerFactory.getLogger(JobService.class);
 
     @Resource
-    private IJobSchedulerService jobSchedulerService;
+    private JobSchedulerMapper jobSchedulerMapper;
     @Resource
     private ApplicationContext context;
     @Resource
@@ -34,7 +33,7 @@ public class JobService implements IJobService {
     // 开机自动从数据库加载任务
     @PostConstruct
     private void init() {
-        for (JobScheduler jobScheduler : jobSchedulerService.list()) {
+        for (JobScheduler jobScheduler : jobSchedulerMapper.findAll()) {
             executeJob(jobScheduler);
         }
     }
@@ -67,22 +66,25 @@ public class JobService implements IJobService {
     }
 
     @Override
-    public void startJob(String jobName) {
+    public boolean startJob(String jobName) {
         if (taskMap.containsKey(jobName)) {
-            throw new SchedulingException("Job[" + jobName + "] was already run.");
+            LOG.error("Job[{}] was already run.", jobName);
+            return false;
         }
-        JobScheduler jobScheduler = jobSchedulerService.findByName(jobName);
+        JobScheduler jobScheduler = jobSchedulerMapper.findByJobName(jobName);
         if (jobScheduler != null) {
             jobScheduler.setStatus(Constant.JOB_ENABLE);
-            jobSchedulerService.updateByName(jobScheduler);
+            jobSchedulerMapper.updateByJobName(jobScheduler);
             executeJob(jobScheduler);
         } else {
-            throw new SchedulingException("Job[" + jobName + "]does not exist in the database.");
+            LOG.error("Job[{}] does not exist in the database.", jobName);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void cancelJob(String jobName) {
+    public boolean cancelJob(String jobName) {
         ScheduledFuture future = taskMap.get(jobName);
         if (future != null) {
             future.cancel(true);
@@ -90,21 +92,23 @@ public class JobService implements IJobService {
             JobScheduler jobScheduler = new JobScheduler();
             jobScheduler.setJobName(jobName);
             jobScheduler.setStatus(Constant.JOB_DISABLE);
-            jobSchedulerService.updateByName(jobScheduler);
+            jobSchedulerMapper.updateByJobName(jobScheduler);
             LOG.info("Job cancel:{}.", jobName);
         } else {
             LOG.info("Job:{} is not running.", jobName);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void resetJob(String jobId) {
-        cancelJob(jobId);
-        startJob(jobId);
+    public boolean resetJob(String jobName) {
+        cancelJob(jobName);
+        return startJob(jobName);
     }
 
     @Override
-    public boolean hasJob(String jobId) {
-        return taskMap.containsKey(jobId);
+    public boolean hasJob(String jobName) {
+        return taskMap.containsKey(jobName);
     }
 }

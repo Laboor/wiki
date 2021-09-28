@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Component
 public class DynamicJobTest implements Runnable {
-    private static final Logger LOG = LoggerFactory.getLogger(TestJob.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DynamicJobTest.class);
 
     @Override
     public void run() {

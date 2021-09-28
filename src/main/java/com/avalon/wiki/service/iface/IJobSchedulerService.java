@@ -1,11 +1,12 @@
 package com.avalon.wiki.service.iface;
 
-import com.avalon.wiki.domain.JobScheduler;
+import com.avalon.wiki.request.JobSchedulerReq;
+import com.avalon.wiki.response.JobSchedulerResp;
 
 import java.util.List;
 
 public interface IJobSchedulerService {
-    List<JobScheduler> list();
-    JobScheduler findByName(String name);
-    void updateByName(JobScheduler jobScheduler);
+    List<JobSchedulerResp> list();
+    JobSchedulerResp findByName(String name);
+    void updateByName(JobSchedulerReq req);
 }
