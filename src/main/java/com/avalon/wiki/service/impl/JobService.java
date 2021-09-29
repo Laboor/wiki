@@ -71,10 +71,10 @@ public class JobService implements IJobService {
             LOG.error("Job[{}] was already run.", jobName);
             return false;
         }
-        JobScheduler jobScheduler = jobSchedulerMapper.findByJobName(jobName);
+        JobScheduler jobScheduler = jobSchedulerMapper.findByName(jobName);
         if (jobScheduler != null) {
             jobScheduler.setStatus(Constant.JOB_ENABLE);
-            jobSchedulerMapper.updateByJobName(jobScheduler);
+            jobSchedulerMapper.update(jobScheduler);
             executeJob(jobScheduler);
         } else {
             LOG.error("Job[{}] does not exist in the database.", jobName);
@@ -92,7 +92,7 @@ public class JobService implements IJobService {
             JobScheduler jobScheduler = new JobScheduler();
             jobScheduler.setJobName(jobName);
             jobScheduler.setStatus(Constant.JOB_DISABLE);
-            jobSchedulerMapper.updateByJobName(jobScheduler);
+            jobSchedulerMapper.update(jobScheduler);
             LOG.info("Job cancel:{}.", jobName);
         } else {
             LOG.info("Job:{} is not running.", jobName);

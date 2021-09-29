@@ -33,7 +33,7 @@ insert into `ebook` (id, name, description) values (5, 'Oracle 入门教程', '�
 # 定时任务表
 drop table if exists `job_scheduler`;
 create table `job_scheduler` (
-  `job_id` bigint not null comment '任务id',
+  `job_id` varchar(200) not null comment '任务id',
   `job_name` varchar(50) comment '任务名称',
   `description` varchar(500) comment '任务描述',
   `cron_expression` varchar(20) not null comment 'cron表达式',
@@ -41,4 +41,5 @@ create table `job_scheduler` (
   primary key (`job_id`)
 ) engine=innodb default charset=utf8mb4 comment='定时任务表';
 
-insert into `job_scheduler` values (1, 'DynamicJobTest', '动态定时任务1', '*/3 * * * * ?', '1');
+insert into `job_scheduler` values ('123', 'DynamicJobTest', '动态定时任务1', '*/3 * * * * ?', '1');
+insert into `job_scheduler` values ('456', 'DynamicJobTest2', '动态定时任务2', '*/5 * * * * ?', '1');

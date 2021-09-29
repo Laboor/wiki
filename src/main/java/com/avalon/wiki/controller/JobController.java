@@ -5,10 +5,7 @@ import com.avalon.wiki.response.CommonResp;
 import com.avalon.wiki.response.JobSchedulerResp;
 import com.avalon.wiki.service.iface.IJobSchedulerService;
 import com.avalon.wiki.service.iface.IJobService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -58,6 +55,20 @@ public class JobController {
         String msg = result ? "任务重启成功" : "任务重启失败";
         resp.setMessage(msg);
         resp.setSuccess(result);
+        return resp;
+    }
+
+    @PostMapping("/add")
+    public CommonResp addJob(JobSchedulerReq jobSchedulerReq) {
+        CommonResp resp = new CommonResp<>();
+        jobSchedulerService.addJob(jobSchedulerReq);
+        return resp;
+    }
+
+    @DeleteMapping("/delete")
+    public CommonResp deleteJob(JobSchedulerReq jobSchedulerReq) {
+        CommonResp resp = new CommonResp<>();
+        jobSchedulerService.deleteByJobName(jobSchedulerReq.getJobName());
         return resp;
     }
 }

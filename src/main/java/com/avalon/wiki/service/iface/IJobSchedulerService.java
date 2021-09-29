@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface IJobSchedulerService {
     List<JobSchedulerResp> list();
-    JobSchedulerResp findByName(String name);
-    void updateByName(JobSchedulerReq req);
+
+    JobSchedulerResp findByJobName(String name);
+
+    void update(JobSchedulerReq req);
+
+    void addJob(JobSchedulerReq req);
+
+    void deleteByJobName(String name);
 }

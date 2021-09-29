@@ -18,6 +18,7 @@ public class EbookService implements IEbookService {
     @Resource
     private EbookMapper ebookMapper;
 
+    @Override
     public List<EbookResp> list(EbookReq req) {
         List<Ebook> ebookList = ebookMapper.findByName(req.getName());
         List<EbookResp> respList = new ArrayList<>();

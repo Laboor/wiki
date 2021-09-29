@@ -16,20 +16,34 @@ public class JobSchedulerService implements IJobSchedulerService {
     @Resource
     private JobSchedulerMapper jobSchedulerMapper;
 
+    @Override
     public List<JobSchedulerResp> list() {
         List<JobScheduler> jobSchedulerList = jobSchedulerMapper.findAll();
         List<JobSchedulerResp> respList = CopyUtil.copyList(jobSchedulerList, JobSchedulerResp.class);
         return respList;
     }
 
-    public JobSchedulerResp findByName(String name) {
-        JobScheduler jobScheduler = jobSchedulerMapper.findByJobName(name);
+    @Override
+    public JobSchedulerResp findByJobName(String name) {
+        JobScheduler jobScheduler = jobSchedulerMapper.findByName(name);
         JobSchedulerResp jobSchedulerResp = CopyUtil.copy(jobScheduler, JobSchedulerResp.class);
         return jobSchedulerResp;
     }
 
-    public void updateByName(JobSchedulerReq jobSchedulerReq) {
+    @Override
+    public void update(JobSchedulerReq jobSchedulerReq) {
         JobScheduler jobScheduler = CopyUtil.copy(jobSchedulerReq, JobScheduler.class);
-        jobSchedulerMapper.updateByJobName(jobScheduler);
+        jobSchedulerMapper.update(jobScheduler);
+    }
+
+    @Override
+    public void addJob(JobSchedulerReq jobSchedulerReq) {
+        JobScheduler jobScheduler = CopyUtil.copy(jobSchedulerReq, JobScheduler.class);
+        jobSchedulerMapper.add(jobScheduler);
+    }
+
+    @Override
+    public void deleteByJobName(String name) {
+        jobSchedulerMapper.deleteByName(name);
     }
 }

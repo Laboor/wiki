@@ -1,7 +1,7 @@
 package com.avalon.wiki.response;
 
 public class JobSchedulerResp {
-    private Long jobId;
+    private String jobId;
 
     private String jobName;
 
@@ -11,11 +11,11 @@ public class JobSchedulerResp {
 
     private String status;
 
-    public Long getJobId() {
+    public String getJobId() {
         return jobId;
     }
 
-    public void setJobId(Long jobId) {
+    public void setJobId(String jobId) {
         this.jobId = jobId;
     }
 

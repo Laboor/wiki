@@ -2,40 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.avalon.wiki.mapper.JobSchedulerMapper">
   <resultMap id="BaseResultMap" type="com.avalon.wiki.domain.JobScheduler">
-    <id column="job_id" jdbcType="BIGINT" property="jobId" />
+    <id column="job_id" jdbcType="VARCHAR" property="jobId" />
     <result column="job_name" jdbcType="VARCHAR" property="jobName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
     <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
 
-  <select id="findAll" resultType="JobScheduler" >
-    SELECT * FROM JOB_SCHEDULER J ORDER BY J.JOB_ID
+  <select id="findAll" resultType="JobScheduler">
+    select * from job_scheduler j order by j.job_id
   </select>
 
-  <select id="findByJobName" resultType="JobScheduler" >
-    SELECT * FROM JOB_SCHEDULER J
+  <select id="findByName" resultType="JobScheduler">
+    select * from job_scheduler j
     <where>
       <if test="name != null">
-        AND J.JOB_NAME = #{name}
+        and j.job_name = #{name}
       </if>
     </where>
   </select>
 
-  <update id="updateByName" parameterType="JobScheduler">
-    UPDATE JOB_SCHEDULER J
+  <update id="update" parameterType="JobScheduler">
+    update job_scheduler j
     <set>
       <if test="description != null">
-        J.DESCRIPTION = #{description},
+        j.description = #{description},
       </if>
       <if test="cronExpression != null">
-        J.CRON_EXPRESSION = #{cronExpression},
+        j.cron_expression = #{cronExpression},
       </if>
       <if test="status != null">
-        J.STATUS = #{status},
+        j.status = #{status},
       </if>
     </set>
-    WHERE J.JOB_NAME = #{jobName}
+    where j.job_name = #{jobName}
   </update>
+
+  <insert id="add" parameterType="JobScheduler">
+    <selectKey keyProperty="jobId" resultType="String" order="BEFORE">
+      select replace(UUID(), '-', '') as jobId from dual
+    </selectKey>
+    insert into job_scheduler
+        (job_id, job_name, description, cron_expression, status)
+        values(#{jobId}, #{jobName}, #{description}, #{cronExpression}, #{status})
+  </insert>
+
+  <delete id="deleteByName" parameterType="String">
+    delete from job_scheduler where job_name = #{name}
+  </delete>
 
 </mapper>

@@ -14,6 +14,7 @@ public class TestService implements ITestService {
     @Resource
     private TestMapper testMapper;
 
+    @Override
     public List<Test> list() {
         return testMapper.list();
     }

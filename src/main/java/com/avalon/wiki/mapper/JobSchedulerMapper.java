@@ -8,6 +8,12 @@ import java.util.List;
 @Mapper
 public interface JobSchedulerMapper {
     List<JobScheduler> findAll();
-    JobScheduler findByJobName(String jobName);
-    void updateByJobName(JobScheduler jobScheduler);
+
+    JobScheduler findByName(String jobName);
+
+    void update(JobScheduler jobScheduler);
+
+    void add(JobScheduler jobScheduler);
+
+    void deleteByName(String jobName);
 }
