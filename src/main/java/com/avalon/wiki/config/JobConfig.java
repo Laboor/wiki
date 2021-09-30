@@ -6,13 +6,20 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @Configuration
 public class JobConfig {
-    @Bean
+    private static final int poolSize = 5;                                 // 线程池大小
+    private static final boolean waitForTasksToCompleteOnShutdown = true;  // 所有线程执行完关闭线程池
+    private static final int awaitTerminationSeconds = 300;                // 等待的时间,超出后强制关闭
+    private static final String threadNamePrefix = "taskExecutor-";        // 线程池名前缀
+
+    @Bean("taskExecutor")
     public ThreadPoolTaskScheduler taskExecutor() {
         ThreadPoolTaskScheduler executor = new ThreadPoolTaskScheduler();
-        executor.setPoolSize(10); // 设置线程池大小
-        executor.setThreadNamePrefix("taskExecutor-"); // 设置线程名前缀
-        executor.setWaitForTasksToCompleteOnShutdown(true); // 等待所有线程执行完
-        executor.setAwaitTerminationSeconds(300); // 等待的时间,超出后强制关闭
+        executor.setPoolSize(poolSize);
+        executor.setThreadNamePrefix(threadNamePrefix);
+        executor.setWaitForTasksToCompleteOnShutdown(waitForTasksToCompleteOnShutdown);   // 等待所有线程执行完关闭
+        executor.setAwaitTerminationSeconds(awaitTerminationSeconds);
+        // 初始化
+        executor.initialize();
         return executor;
     }
 }
