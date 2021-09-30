@@ -1,0 +1,20 @@
+package com.avalon.wiki.job;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@Component
+public class DynamicJobTest2 implements Runnable {
+    private static final Logger LOG = LoggerFactory.getLogger(DynamicJobTest2.class);
+
+    @Override
+    public void run() {
+        SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
+        String dateString = formatter.format(new Date());
+        LOG.info("定时任务2： {}", dateString);
+    }
+}
