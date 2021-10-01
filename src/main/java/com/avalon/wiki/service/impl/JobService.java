@@ -28,12 +28,13 @@ public class JobService implements IJobService {
     @Resource
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
-    private Map<String, ScheduledFuture<?>> taskMap = new ConcurrentHashMap<>();
+    private final Map<String, ScheduledFuture<?>> taskMap = new ConcurrentHashMap<>();
 
     // 开机自动从数据库加载任务
     @PostConstruct
     private void init() {
         for (JobScheduler jobScheduler : jobSchedulerMapper.findAll()) {
+
             executeJob(jobScheduler);
         }
     }

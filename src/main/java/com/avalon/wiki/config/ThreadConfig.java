@@ -1,5 +1,6 @@
 package com.avalon.wiki.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -10,13 +11,26 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @EnableAsync
 public class ThreadConfig {
-    private static final int corePoolSize = 10;                      // 核心线程数（默认线程数）
-    private static final int maxPoolSize = 100;                      // 最大线程数
-    private static final int keepAliveTime = 10;                     // 允许线程空闲时间（单位：默认为秒）
-    private static final int queueCapacity = 200;                    // 缓冲队列数
-    private static final int awaitTerminationSeconds = 60;           // 所有线程执行完等待时间
-    private static final boolean waitForTasksToCompleteOnShutdown = true;  // 所有线程执行完关闭线程池
-    private static final String threadNamePrefix = "asyncExecutor-"; // 线程池名前缀
+    @Value("${threadPool.asyncThread.corePoolSize}")
+    private int corePoolSize;                     // 核心线程数（默认线程数）
+
+    @Value("${threadPool.asyncThread.maxPoolSize}")
+    private int maxPoolSize;                      // 最大线程数
+
+    @Value("${threadPool.asyncThread.keepAliveTime}")
+    private int keepAliveTime;                    // 允许线程空闲时间（单位：默认为秒）
+
+    @Value("${threadPool.asyncThread.queueCapacity}")
+    private int queueCapacity;                    // 缓冲队列数
+
+    @Value("${threadPool.asyncThread.awaitTerminationSeconds}")
+    private int awaitTerminationSeconds;          // 所有线程执行完等待时间
+
+    @Value("${threadPool.asyncThread.waitForTasksToCompleteOnShutdown}")
+    private boolean waitForTasksToCompleteOnShutdown;  // 所有线程执行完关闭线程池
+
+    @Value("${threadPool.asyncThread.threadNamePrefix}")
+    private String threadNamePrefix;              // 线程池名前缀
 
     @Bean("asyncExecutor")
     public ThreadPoolTaskExecutor getAsyncExecutor() {

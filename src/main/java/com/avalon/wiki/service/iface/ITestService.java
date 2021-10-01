@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ITestService {
     public List<Test> list();
+    void foo();
 }
