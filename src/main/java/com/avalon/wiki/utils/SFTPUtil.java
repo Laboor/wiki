@@ -159,7 +159,11 @@ public class SFTPUtil {
     }
 
     /**
-     * 下载文件
+     * 下载单个文件
+     *
+     * @param remotePath     远程保存目录
+     * @param remoteFile     远程文件名
+     * @return
      */
     public InputStream downFile(String remotePath, String remoteFile) throws SftpException {
         try {
@@ -174,6 +178,14 @@ public class SFTPUtil {
         }
     }
 
+
+    /**
+     * 下载单个文件
+     *
+     * @param remotePath     远程保存目录
+     * @param remoteFile     远程文件名
+     * @return
+     */
     public byte[] downLoad(String remotePath, String remoteFile) throws SftpException, IOException {
         InputStream input = null;
         try {
@@ -202,6 +214,7 @@ public class SFTPUtil {
     /**
      * 下载单个文件
      *
+     * @param remotePath     远程保存目录
      * @param remoteFileName 下载文件名
      * @param localPath      本地保存目录(以路径符号结束)
      * @param localFileName  保存文件名
@@ -229,6 +242,10 @@ public class SFTPUtil {
 
     /**
      * 上传(input上传完成,并未关闭,在外层调用处虚处理)
+     *
+     * @param remotePath     远程保存目录
+     * @param fileName       保存文件名
+     * @param input          输入流
      */
     public void uploadFile(String remotePath, String fileName, InputStream input) throws SftpException, IOException {
         try {
@@ -250,7 +267,11 @@ public class SFTPUtil {
     }
 
     /**
-     * 上传 不关闭任何流
+     * 上传 不关闭流
+     *
+     * @param remotePath     远程保存目录
+     * @param fileName       保存文件名
+     * @param input          输入流
      */
     public void uploadFileNotClose(String remotePath, String fileName, InputStream input) throws SftpException {
         try {
@@ -305,6 +326,13 @@ public class SFTPUtil {
         }
     }
 
+    /**
+     * 删除单个文件
+     *
+     * @param remotePath     远程保存目录
+     * @param remoteFile     保存文件名
+     * @return
+     */
     public boolean deleteFile(String remotePath, String remoteFile) throws SftpException {
         try {
             if (sftp == null || !isConnected()) {
@@ -320,6 +348,14 @@ public class SFTPUtil {
         }
     }
 
+    /**
+     * 重命名单个文件
+     *
+     * @param remotePath     远程保存目录
+     * @param oldFileName    旧文件名
+     * @param newFileName    新文件名
+     * @return
+     */
     public boolean renameFile(String remotePath, String oldFileName, String newFileName) throws SftpException {
         try {
             if (sftp == null || !isConnected()) {
