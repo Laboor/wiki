@@ -44,7 +44,7 @@
 import cryptoJS from 'crypto-js';
 
 export default {
-	name: 'login',
+	name: 'Login',
 	data() {
 		const validateAccount = (rule, value, callback) => {
 			if (value === '') {

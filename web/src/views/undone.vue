@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'undone',
+  name: 'Undone',
   destroyed() {
     console.log(`${this.$options.name}被销毁`);
   },

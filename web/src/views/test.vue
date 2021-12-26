@@ -20,7 +20,7 @@ import xlsx from '@utils/xlsx.js';
 // ].map(function(x) { return "." + x; }).join(",");
 
 export default {
-	name: 'test',
+	name: 'Test',
 	data() {
 		return {
 			sheet: {},

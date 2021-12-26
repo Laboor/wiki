@@ -21,6 +21,7 @@ export default new Vuex.Store({
 	mutations: {
 		[CREATE_MAIN_MENU](state) {
 			let routes = router.getRoutes();
+      // 过滤根路由
 			let menuRoutes = routes.filter((item) => {
 				return item.parent;
 			});
@@ -30,7 +31,7 @@ export default new Vuex.Store({
 				if (route.parent) {
 					menuRoutes.forEach((parentRoute) => {
 						if (parentRoute.path === route.parent.path) {
-							parentRoute.children = [];
+							parentRoute.children = []; // 触发BUG
 							parentRoute.children.push(route);
 							toBeDel.push(menuRoutes[index]);
 						}
@@ -40,6 +41,7 @@ export default new Vuex.Store({
 			state.mainMenu = menuRoutes.filter((route) => {
 				return route && !toBeDel.includes(route);
 			});
+      console.log(state.mainMenu);
 		},
 	},
 	actions: {

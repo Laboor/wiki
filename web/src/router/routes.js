@@ -20,6 +20,7 @@ let routes = [
 		meta: {
 			hideInBread: true,
 			hideInMenu: true,
+      loginAuth: true
 		},
 		redirect: 'home', // 重定向到首页
 		children: [
@@ -64,6 +65,7 @@ let routes = [
 								meta: {
 									title: '未完成',
 									icon: 'home',
+                  loginAuth: true,
 								},
 							},
 						],

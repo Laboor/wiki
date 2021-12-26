@@ -1,9 +1,9 @@
 export default {
 	routes: [
 		{
-			path: '/foo',
+			path: '/test/login/foo',
 			name: 'foo',
-      parent: 'root',
+      parent: 'login',
 			component: 'Foo.vue',
 			meta: {
 				title: '愚人',
